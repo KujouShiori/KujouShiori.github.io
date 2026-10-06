@@ -1,0 +1,1339 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-cn"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};</script>
+  
+  
+  <title>
+    ACTGS 引擎归档容器格式规范 |
+    
+    九条诗织的碎碎念博客
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="ACTGS 引擎归档容器格式规范—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档   项 值    文档版本 1.0   编制日期 2026-10-06   适用引擎 ACTGS ver 2.33（(c) 2003-2005 ACTRESS），Delphi&#x2F;VCL，Win32   验证样本 WHITE CLARITY PC版，Windows 11 x6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ACTGS 引擎归档容器格式规范">
+<meta property="og:url" content="https://kujoushiori.github.io/2026/10/06/%E4%B8%93%E4%B8%9A%E5%8F%82%E8%80%83_ACTGS%E5%AE%B9%E5%99%A8%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="九条诗织的碎碎念博客">
+<meta property="og:description" content="ACTGS 引擎归档容器格式规范—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档   项 值    文档版本 1.0   编制日期 2026-10-06   适用引擎 ACTGS ver 2.33（(c) 2003-2005 ACTRESS），Delphi&#x2F;VCL，Win32   验证样本 WHITE CLARITY PC版，Windows 11 x6">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-06T00:21:11.336Z">
+<meta property="article:author" content="KujouShiori">
+<meta property="article:tag" content="逆向工程">
+<meta property="article:tag" content="Galgame">
+<meta property="article:tag" content="汉化">
+<meta property="article:tag" content="游戏破解">
+<meta property="article:tag" content="Ghidra Delphi">
+<meta property="article:tag" content="技术分享">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="九条诗织的碎碎念博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff5252" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+         M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="#ff5252" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
+    
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    
+      <img fetchpriority="high" src="/images/banner.webp" alt="ACTGS 引擎归档容器格式规范">
+    
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">ACTGS 引擎归档容器格式规范</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content">
+          
+          <section id="main"><article id="post-专业参考_ACTGS容器格式规范" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2026/10/06/%E4%B8%93%E4%B8%9A%E5%8F%82%E8%80%83_ACTGS%E5%AE%B9%E5%99%A8%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2026-10-06T00:00:00.000Z" itemprop="datePublished">2026-10-06</time>
+    <time style="display: none;" id="post-update-time">2026-10-06</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%9F%A5%E8%AF%86/" data-aos="zoom-in">知识</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="ACTGS-引擎归档容器格式规范"><a href="#ACTGS-引擎归档容器格式规范" class="headerlink" title="ACTGS 引擎归档容器格式规范"></a>ACTGS 引擎归档容器格式规范</h1><h3 id="——-以-WHITE-CLARITY（ACTGS-ver-2-33）为样本的参考文档"><a href="#——-以-WHITE-CLARITY（ACTGS-ver-2-33）为样本的参考文档" class="headerlink" title="—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档"></a>—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文档版本</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>编制日期</td>
+<td>2026-10-06</td>
+</tr>
+<tr>
+<td>适用引擎</td>
+<td>ACTGS ver 2.33（<code>(c) 2003-2005 ACTRESS</code>），Delphi&#x2F;VCL，Win32</td>
+</tr>
+<tr>
+<td>验证样本</td>
+<td><code>WHITE CLARITY PC版</code>，Windows 11 x64，系统 ANSI 代码页 936</td>
+</tr>
+<tr>
+<td>证据来源</td>
+<td>静态反编译（Ghidra 12.1.4，4351 函数全量反编译，失败 0）+ 运行时内存取证 + 逐字节回环实验</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>本地化、格式研究、数据迁移</td>
+</tr>
+</tbody></table>
+<p><strong>证据等级标注</strong>（本文所有结论均带标记）：</p>
+<ul>
+<li><strong>[M]</strong> Measured — 由反编译代码或运行时实测直接确认</li>
+<li><strong>[I]</strong> Inferred — 由 [M] 事实推导，尚未独立验证</li>
+<li><strong>[U]</strong> Unverified — 观察性结论，样本外可能不成立</li>
+</ul>
+<hr>
+<h2 id="1-术语与记号"><a href="#1-术语与记号" class="headerlink" title="1. 术语与记号"></a>1. 术语与记号</h2><table>
+<thead>
+<tr>
+<th>记号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>KEY</code></td>
+<td>5 字节重复密钥 <code>11 05 22 33 41</code> <strong>[M]</strong></td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>归档条目数，位于文件头 <code>uint32</code></td>
+</tr>
+<tr>
+<td><code>rec[i]</code></td>
+<td>第 i 条 32 字节索引记录（<strong>已解密</strong>形态）</td>
+</tr>
+<tr>
+<td><code>off[i]</code>, <code>len[i]</code></td>
+<td>记录中的绝对偏移与原始长度</td>
+</tr>
+<tr>
+<td><code>blob[i]</code></td>
+<td>第 i 个数据块在归档中的密文字节</td>
+</tr>
+<tr>
+<td><code>plain[i]</code></td>
+<td>数据块解密后的字节</td>
+</tr>
+<tr>
+<td><code>pad[i]</code></td>
+<td>第 i 块末尾到下一块起点之间的原始字节（对齐填充，<strong>内容不保证为 00</strong>）</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td><code>≡</code></td>
+<td>逐字节相等</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-样本基准值"><a href="#2-样本基准值" class="headerlink" title="2. 样本基准值"></a>2. 样本基准值</h2><table>
+<thead>
+<tr>
+<th>归档</th>
+<th>大小</th>
+<th><code>N</code></th>
+<th>记录长度</th>
+<th>混淆</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>arc.scr</code></td>
+<td>2,409,936</td>
+<td>164</td>
+<td>32 B</td>
+<td>索引 + 数据块</td>
+<td>纯文本脚本</td>
+</tr>
+<tr>
+<td><code>arc.cg</code></td>
+<td>942,221,792</td>
+<td>1003</td>
+<td>32 B</td>
+<td>索引 + 数据块</td>
+<td>图像&#x2F;PSD</td>
+</tr>
+<tr>
+<td><code>arc.wav</code></td>
+<td>345,471,840</td>
+<td>5779</td>
+<td><strong>24 B</strong></td>
+<td><strong>无</strong></td>
+<td>明文容器，可作对照样本 <strong>[M]</strong></td>
+</tr>
+</tbody></table>
+<p><code>arc.scr</code> 派生量 <strong>[M]</strong> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">索引区      [16, 5264)          = 16 + 164×32<br>数据区起点   5264<br>末块结束     2409930<br>尾部残留     6 字节<br>解密后明文合计 2,403,410 字节；cp932 解码 U+FFFD 计数 = 0<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>arc.wav</code> 未混淆且记录长度为 24 字节（<code>[off][len][name[16]]</code>），<br>说明 <strong>ACTGS 家族存在多种记录布局</strong>。不得假设 §3 的 32 字节布局全局通用 <strong>[M]</strong> 。</p>
+</blockquote>
+<hr>
+<h2 id="3-容器布局规范"><a href="#3-容器布局规范" class="headerlink" title="3. 容器布局规范"></a>3. 容器布局规范</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">偏移   长度        字段<br>0x00   4           uint32 N                    条目数<br>0x04   12          0x00 × 12                   保留<br>0x10   N×32        索引记录区（混淆态，见 §4.1）<br> …     —           数据块区：blob[0] pad[0] blob[1] pad[1] …<br> …     —           尾部残留（arc.scr 为 6 字节）<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-1-索引记录（32-字节，解密后）"><a href="#3-1-索引记录（32-字节，解密后）" class="headerlink" title="3.1 索引记录（32 字节，解密后）"></a>3.1 索引记录（32 字节，解密后）</h3><table>
+<thead>
+<tr>
+<th>偏移</th>
+<th>长度</th>
+<th>类型</th>
+<th>语义</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+0x00</code></td>
+<td>4</td>
+<td>uint32 LE</td>
+<td>该条目数据块的<strong>绝对文件偏移</strong></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td><code>+0x04</code></td>
+<td>4</td>
+<td>uint32 LE</td>
+<td>该条目数据块的<strong>原始长度</strong>（不含对齐填充）</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td><code>+0x08</code></td>
+<td>24</td>
+<td>char[]</td>
+<td>文件名，NUL 结尾，其余补 0；字符集 cp932</td>
+<td>[M]</td>
+</tr>
+</tbody></table>
+<p>示例（解密后）：<code>00-001.scr</code> <code>00-002.scr</code> <code>00-end.scr</code> <code>01-001.scr</code> … <code>k06-502a.scr</code> <code>open.scr</code></p>
+<h3 id="3-2-数据块排布规则"><a href="#3-2-数据块排布规则" class="headerlink" title="3.2 数据块排布规则"></a>3.2 数据块排布规则</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">off[0]      = 16 + N×32<br>off[i+1]    ≥ off[i] + len[i]<br>对齐要求     块尾 16 字节对齐： (off[i] + len[i]) 向上取整到 16 的倍数 = 下一块起点<br></code></pre></td></tr></table></figure>
+
+<p>实测间隙序列（arc.scr 前若干块）：<code>14, 1, 3, 0, 7 …</code> 字节，与 16 字节对齐推导一致 <strong>[M]</strong> 。</p>
+<blockquote>
+<p><strong>回写注意</strong>：<code>pad[i]</code> 的实际字节内容不保证为 <code>0x00</code>。<br>若需”未修改即可逐字节还原”，必须原样保留 <code>pad[i]</code>（见 §8.2）。</p>
+</blockquote>
+<hr>
+<h2 id="4-混淆算法规范"><a href="#4-混淆算法规范" class="headerlink" title="4. 混淆算法规范"></a>4. 混淆算法规范</h2><h3 id="4-1-索引区"><a href="#4-1-索引区" class="headerlink" title="4.1 索引区"></a>4.1 索引区</h3><p>作用于文件偏移 <code>0x10</code> 起的 <code>N×32</code> 字节，相位以<strong>缓冲区首</strong>为 0 <strong>[M]</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; N * <span class="hljs-number">32</span>; i++)<br>    idx[i] ^= KEY[i % <span class="hljs-number">5</span>];<br></code></pre></td></tr></table></figure>
+
+<p>反变换与正变换相同（异或自反）。</p>
+<h3 id="4-2-数据块"><a href="#4-2-数据块" class="headerlink" title="4.2 数据块"></a>4.2 数据块</h3><p>逐块独立，相位在<strong>块内</strong>重置 <strong>[M]</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (blob[<span class="hljs-number">0</span>] == <span class="hljs-number">0x58</span>) &#123;                       <span class="hljs-comment">/* &#x27;X&#x27; 加密标记 */</span><br>    plain[<span class="hljs-number">0</span>] = <span class="hljs-number">0x4E</span>;                         <span class="hljs-comment">/* &#x27;N&#x27; */</span><br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; len; i++)<br>        plain[i] = blob[i] ^ KEY[(i - <span class="hljs-number">1</span>) % <span class="hljs-number">5</span>];<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    plain = blob;                            <span class="hljs-comment">/* 未加密块，原样 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>规范性提示（高频错误点）</strong>：下标为 <code>(i - 1) % 5</code> 而非 <code>i % 5</code>。<br>引擎源码写作 <code>u = u % klen + 1</code> 的滚动形式，其下标序列为 <code>0,1,2,3,4,0,…</code>，<br>配合循环 <code>i</code> 从 1 起始，等价于 <code>(i-1) % 5</code>。<br>误用 <code>i % 5</code> 将导致整块相位偏移 1，症状为”块首若干字节正常、其后全部错误”，<br>极易被误判为”存在第二层加密” <strong>[M]</strong> 。</p>
+<h3 id="4-3-密钥实体"><a href="#4-3-密钥实体" class="headerlink" title="4.3 密钥实体"></a>4.3 密钥实体</h3><p><code>KEY</code> 以 NUL 结尾字符串形式存在于 <code>.data</code>，长度由 <code>strlen</code> 运行时求得。<br>样本内共 4 份副本，内容相同 <strong>[M]</strong> ：</p>
+<table>
+<thead>
+<tr>
+<th>VA</th>
+<th>引用方</th>
+<th>作用对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x4C5460</code></td>
+<td><code>FUN_00429568</code></td>
+<td>归档索引</td>
+</tr>
+<tr>
+<td><code>0x4BFEDF</code></td>
+<td><code>FUN_004124d0</code></td>
+<td>脚本数据块</td>
+</tr>
+<tr>
+<td><code>0x4C2A28</code></td>
+<td><code>FUN_0042629c</code></td>
+<td>PSD 资源</td>
+</tr>
+<tr>
+<td><code>0x4C5857</code></td>
+<td><code>FUN_0042a32c</code></td>
+<td>DIBitmap 资源</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">字节： 11 05 22 33 41 00        strlen = 5<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>该密钥为<strong>混淆</strong>而非加密：无完整性校验、无密钥派生、明文可预测（大量 0 填充）。<br>不具备任何抗分析能力 <strong>[M]</strong> 。</p>
+</blockquote>
+<hr>
+<h2 id="5-脚本正文语法约定（-scr-解密后）"><a href="#5-脚本正文语法约定（-scr-解密后）" class="headerlink" title="5. 脚本正文语法约定（.scr 解密后）"></a>5. 脚本正文语法约定（<code>.scr</code> 解密后）</h2><h3 id="5-1-行分隔与记录"><a href="#5-1-行分隔与记录" class="headerlink" title="5.1 行分隔与记录"></a>5.1 行分隔与记录</h3><ul>
+<li>行分隔符：<code>CRLF</code>（<code>0x0D 0x0A</code>） <strong>[M]</strong></li>
+<li>块首字节解密后被置为 <code>0x4E</code>（<code>&#39;N&#39;</code>），实测为版本&#x2F;类型标记 <strong>[M]</strong></li>
+<li>注释行以 <code>0x3B</code>（<code>;</code>）起始 <strong>[M]</strong></li>
+</ul>
+<h3 id="5-2-行分类规则（规范性）"><a href="#5-2-行分类规则（规范性）" class="headerlink" title="5.2 行分类规则（规范性）"></a>5.2 行分类规则（<strong>规范性</strong>）</h3><p>引擎按行首字节决定该行语义 <strong>[M]</strong> ：</p>
+<table>
+<thead>
+<tr>
+<th>行首</th>
+<th>语义</th>
+<th>可否本地化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>A-Z</code> &#x2F; <code>a-z</code></td>
+<td>命令行（命令名 + 参数）</td>
+<td><strong>禁止翻译</strong>；参数中的资源标识符亦禁止</td>
+</tr>
+<tr>
+<td><code>;</code></td>
+<td>注释</td>
+<td>可译可不动</td>
+</tr>
+<tr>
+<td>双字节前导</td>
+<td><strong>显示正文</strong></td>
+<td>待翻译目标</td>
+</tr>
+<tr>
+<td><code>0x00</code>–<code>0x20</code> 等</td>
+<td>控制&#x2F;填充</td>
+<td>禁止改动</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>验证依据：将一行正文替换为 ASCII 文本后，引擎立即报<br><code>SCRIPT ERROR / 未定義のコマンド &lt;该行内容&gt;</code>，位置标注为 <code>&lt;文件名&gt; (行号)</code>。<br>即”字母开头 → 命令名查表” <strong>[M]</strong> 。</p>
+</blockquote>
+<h3 id="5-3-已观测命令表（arc-scr）"><a href="#5-3-已观测命令表（arc-scr）" class="headerlink" title="5.3 已观测命令表（arc.scr）"></a>5.3 已观测命令表（arc.scr）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">vo  msg  msg2  ret  sp  sp1_cf  bg  bg1_fi  bgm  bgm1  se  se2  ev  evnn  evrn<br>posi  set_rgb  set_alpha  set_all_fade  move_xyset  shake  flash  zoom  rotate<br>wait  change  select  define  movie  title  goto  window  auto  menu  kaisou  sleep<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>命令名以明文 ASCII 存于脚本中，<strong>不在 exe 的字符串表内</strong>（已 grep 确认）[M] 。<br>因此命令集合的权威来源是脚本自身，而非 exe。</p>
+</blockquote>
+<h3 id="5-4-资源标识符警告"><a href="#5-4-资源标识符警告" class="headerlink" title="5.4 资源标识符警告"></a>5.4 资源标识符警告</h3><p>形如 <code>sp1_cf &quot;月&quot;</code>、<code>bgm1 &quot;bgm01&quot;</code>、<code>bg1_fi 天井</code> 的行，<br>其<strong>参数含日文但属于标识符</strong>，与 <code>arc.cg</code> 内素材名一一对应 <strong>[I]</strong> 。<br>本地化时若需替换，必须同步改名素材条目；否则运行期取不到资源。</p>
+<h3 id="5-5-语料规模（样本实测）"><a href="#5-5-语料规模（样本实测）" class="headerlink" title="5.5 语料规模（样本实测）"></a>5.5 语料规模（样本实测）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">脚本文件      164        含正文的文件   151        无正文文件   13<br>正文行        31,455     正文字节       1,435,398<br>明文总字节    2,403,410  假名 431,191   汉字 158,337   U+FFFD 0<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-字符编码与运行时前导判定"><a href="#6-字符编码与运行时前导判定" class="headerlink" title="6. 字符编码与运行时前导判定"></a>6. 字符编码与运行时前导判定</h2><h3 id="6-1-渲染路径"><a href="#6-1-渲染路径" class="headerlink" title="6.1 渲染路径"></a>6.1 渲染路径</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文本绘制</td>
+<td><code>ExtTextOutA</code>（ANSI）</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>导入跳板</td>
+<td><code>0x4B6850</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>调用点</td>
+<td><code>0x46305D</code>、<code>0x463115</code>（<strong>全程序仅 2 处</strong>，均为 VCL <code>TCanvas.TextOut/TextRect</code> 包装）</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>文本测量</td>
+<td><code>GetTextExtentPoint32A</code>，跳板 <code>0x4B68C8</code>，调用点 1 处</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>字体</td>
+<td><code>CreateFontIndirectA</code>，<code>ACTGS.ini</code> 指定 <code>ＭＳ Ｐゴシック</code></td>
+<td>[M]</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>渲染入口极窄：<strong>2 个调用点覆盖全部游戏文字</strong>。任何运行时注入&#x2F;hook 方案只需处理这两处。</p>
+</blockquote>
+<h3 id="6-2-双字节前导判定表"><a href="#6-2-双字节前导判定表" class="headerlink" title="6.2 双字节前导判定表"></a>6.2 双字节前导判定表</h3><p>引擎按行扫描时查询一张 32 字节位图 <strong>[M]</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">(DAT_004CE218[b &gt;&gt; <span class="hljs-number">3</span>] &gt;&gt; (b &amp; <span class="hljs-number">7</span>)) &amp; <span class="hljs-number">1</span>        <span class="hljs-comment">/* 1 = 该字节为双字节前导 */</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>该地址在<strong>镜像文件中全为 0x00</strong>，即运行时构建 <strong>[M]</strong></li>
+<li>运行时实测内容（<code>ReadProcessMemory</code>，进程初始化后） <strong>[M]</strong> ：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">00×16 | FE FF FF FF FF FF FF FF FF FF FF FF FF FF FF 7F<br>置位数 = 126    范围 = 0x81–0xFE<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-规范性结论"><a href="#6-3-规范性结论" class="headerlink" title="6.3 规范性结论"></a>6.3 规范性结论</h3><table>
+<thead>
+<tr>
+<th>判定</th>
+<th>内容</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>该表由<strong>系统 ANSI 代码页</strong>驱动</td>
+<td>样本机 ACP &#x3D; 936，实测表内容等于 GBK 前导全集</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>Shift-JIS 前导全集仅 46 个（<code>0x81-0x9F</code> + <code>0xE0-0xEA</code>）</td>
+<td>与实测 126 个不符</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td><strong>在 ACP&#x3D;936 环境下运行该日文引擎，无需内码补丁即可渲染 GBK 中文正文</strong></td>
+<td>前导判定与 GDI 解码两侧同时为 GBK</td>
+<td>[M]（表内容、调用点）+ [I]（端到端渲染）</td>
+</tr>
+<tr>
+<td>同一环境下<strong>日文原文会被画成乱码</strong></td>
+<td>同一事实的反面；可在错误弹窗截图中直接观测</td>
+<td>[M]</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>适用条件</strong>：结论依赖宿主 ACP。若目标机 ACP &#x3D; 932，该表将退化为 Shift-JIS 前导集，<br>GBK 中文的 <code>0xA1–0xDF</code>、<code>0xF1–0xFE</code> 段前导会被误判为单字节，导致逐字错位 <strong>[I]</strong> 。<br>跨环境部署前应重新读取该位图确认。</p>
+</blockquote>
+<hr>
+<h2 id="7-回写规范"><a href="#7-回写规范" class="headerlink" title="7. 回写规范"></a>7. 回写规范</h2><h3 id="7-1-必办事项"><a href="#7-1-必办事项" class="headerlink" title="7.1 必办事项"></a>7.1 必办事项</h3><ol>
+<li>保持条目顺序与 <code>N</code> 不变（改变条目数需同时改写文件头，本文未覆盖） <strong>[U]</strong></li>
+<li>每条 <code>rec[i]</code> 的 <code>+0x00</code> 写新偏移、<code>+0x04</code> 写新长度；<code>+0x08..</code> 原样保留 <strong>[M]</strong></li>
+<li>数据块加密：首字节写 <code>0x58</code>，<code>i≥1</code> 用 <code>KEY[(i-1)%5]</code>（若原块未加密则原样写出） <strong>[M]</strong> </li>
+<li>块尾对齐到 16 字节 <strong>[M]</strong></li>
+<li>保留尾部残留字节 <strong>[M]</strong></li>
+</ol>
+<h3 id="7-2-填充保真原则（规范性）"><a href="#7-2-填充保真原则（规范性）" class="headerlink" title="7.2 填充保真原则（规范性）"></a>7.2 填充保真原则（规范性）</h3><blockquote>
+<p><strong>当某条目长度未变化时，必须逐字节复用其原始 <code>pad[i]</code>，不得以 <code>0x00</code> 重写。</strong></p>
+</blockquote>
+<p>理由：<code>pad[i]</code> 内容不保证为 0。若统一填 0，则”未修改→重封”无法满足 <code>≡ 原文件</code>，<br>从而丧失 §8.1 这条最强的自检手段 <strong>[M]</strong> 。</p>
+<h3 id="7-3-文本替换的安全边界"><a href="#7-3-文本替换的安全边界" class="headerlink" title="7.3 文本替换的安全边界"></a>7.3 文本替换的安全边界</h3><ul>
+<li>仅替换 §5.2 中”显示正文”类行；其余字节一律从基准二进制原样拷回 <strong>[M]</strong></li>
+<li>译文按 GBK 编码；不可 GBK 表示的字符（日文假名、生僻字、emoji）必须显式报错或降级，<br>禁止静默替换为 <code>?</code> <strong>[I]</strong></li>
+<li>译文行数与 <code>seq</code> 数不一致时，<strong>整份沿用原文并告警</strong>，不得部分写入 <strong>[M]</strong></li>
+</ul>
+<hr>
+<h2 id="8-验证协议"><a href="#8-验证协议" class="headerlink" title="8. 验证协议"></a>8. 验证协议</h2><p>三条判据，各自适用范围与局限均予明示。</p>
+<h3 id="8-1-无损回环（round-trip）"><a href="#8-1-无损回环（round-trip）" class="headerlink" title="8.1 无损回环（round-trip）"></a>8.1 无损回环（round-trip）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">操作：不放任何译文 → unpack → repack<br>判据：结果 ≡ 原始归档（逐字节）<br>证明：重封器未丢失任何信息（对齐、填充、尾部、索引边角字段）<br>不证明：解密算法与引擎一致（任何可逆变换都满足此条）<br></code></pre></td></tr></table></figure>
+
+<p>样本实测：<code>orig=2409936  rebuilt=2409936  一致=True</code> <strong>[M]</strong></p>
+<h3 id="8-2-变长回读"><a href="#8-2-变长回读" class="headerlink" title="8.2 变长回读"></a>8.2 变长回读</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">操作：替换 ≥1 条正文为不同长度的中文 → repack → 再解出该块<br>判据：中文字节原样读回；N 条偏移仍单调；块尾仍 16 字节对齐<br>证明：偏移重排与长度字段更新正确<br></code></pre></td></tr></table></figure>
+
+<p>样本实测：3 条替换，产物 2409872，偏移单调 &#x3D; True <strong>[M]</strong></p>
+<h3 id="8-3-幂等"><a href="#8-3-幂等" class="headerlink" title="8.3 幂等"></a>8.3 幂等</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">操作：产物 → unpack → repack<br>判据：两次产物逐字节相等<br>证明：流程可反复迭代而不退化<br></code></pre></td></tr></table></figure>
+
+<p>样本实测：True <strong>[M]</strong></p>
+<h3 id="8-4-算法正确性的唯一有效判据"><a href="#8-4-算法正确性的唯一有效判据" class="headerlink" title="8.4 算法正确性的唯一有效判据"></a>8.4 算法正确性的唯一有效判据</h3><blockquote>
+<p><strong>解密产物必须是”零非法字节的合法编码文本”。</strong></p>
+</blockquote>
+<p>对 <code>.scr</code>：以 <code>cp932</code> 解码全明文，<code>U+FFFD</code> 计数应为 0；<br>“最长连续合法双字节串”应达到自然语言量级（数十至上千字符）。</p>
+<p>样本实测：<code>U+FFFD = 0</code>，总明文 2,403,410 字节 <strong>[M]</strong></p>
+<blockquote>
+<p><strong>反例警示（本项目真实经历）</strong>：一个错误的差分模型<br><code>D[i] = P[i] ^ P[i-5]</code> 在零填充区会<strong>碰巧输出正确字节</strong><br>（<code>P[i-5]==0 ⇒ D[i]==P[i]</code>），因而能同时满足”解出文件名””偏移单调””可逆回环”，<br>却仍与引擎算法无关。此时明文的最长合法 SJIS 串仅 11 字符——这才是决定性反证 <strong>[M]</strong> 。</p>
+</blockquote>
+<hr>
+<h2 id="9-静态定位索引"><a href="#9-静态定位索引" class="headerlink" title="9. 静态定位索引"></a>9. 静态定位索引</h2><table>
+<thead>
+<tr>
+<th>VA &#x2F; 地址</th>
+<th>作用</th>
+<th>关键代码特征</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x400000</code></td>
+<td>ImageBase</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>.text</code> VA <code>0x1000</code> &#x2F; Raw <code>0x600</code> &#x2F; 0xB6000</td>
+<td>代码段（内嵌字符串，线性反汇编会失步）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>.data</code> VA <code>0xB7000</code> &#x2F; Raw <code>0xB6600</code> &#x2F; 0x1B400（VSize 0xE5000，后段 BSS）</td>
+<td>数据段</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>FUN_00406148</code></td>
+<td>启动流程，引用 <code>&quot;arc.scr&quot;</code></td>
+<td><code>FUN_00429568(h, &quot;arc.scr&quot;, 1, 0)</code></td>
+</tr>
+<tr>
+<td><code>FUN_00429568</code></td>
+<td><strong>归档打开 + 索引解密</strong></td>
+<td><code>buf[i] ^= KEY[u % klen]</code></td>
+</tr>
+<tr>
+<td><code>FUN_004124d0</code></td>
+<td><strong>脚本读取 + 数据块解密</strong></td>
+<td><code>if (*buf==&#39;X&#39;) &#123; … *buf=&#39;N&#39;; &#125;</code></td>
+</tr>
+<tr>
+<td><code>FUN_0042629c</code> &#x2F; <code>FUN_0042a32c</code></td>
+<td>PSD &#x2F; DIBitmap 加载</td>
+<td>同型异或环，密钥副本 <code>0x4C2A28</code>&#x2F;<code>0x4C5857</code></td>
+</tr>
+<tr>
+<td><code>FUN_0049ede0</code></td>
+<td><strong>按行切分脚本</strong></td>
+<td><code>\r\n</code> 判定 + 前导位图查询</td>
+</tr>
+<tr>
+<td><code>FUN_004a02f8</code></td>
+<td>全角&#x2F;半角与 ASCII 大小写折叠</td>
+<td><code>0x41-0x5A ↔ 0x61-0x7A</code> 的 <code>±0x20</code></td>
+</tr>
+<tr>
+<td><code>0x4B6850</code></td>
+<td><code>ExtTextOutA</code> 跳板（<code>jmp [0x59E8E4]</code>）</td>
+<td>调用点 2 处</td>
+</tr>
+<tr>
+<td><code>0x4B68C8</code></td>
+<td><code>GetTextExtentPoint32A</code> 跳板</td>
+<td>调用点 1 处</td>
+</tr>
+<tr>
+<td><code>0x4CE218</code></td>
+<td>运行时前导位图（32 B）</td>
+<td>镜像内全 0</td>
+</tr>
+<tr>
+<td><code>.text</code> 尾 <code>0x4B6EBF</code></td>
+<td>321 字节全零代码洞（可放桩）</td>
+<td>实测可用</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>地址→文件偏移换算：<code>fileOff = 0x600 + (VA - 0x401000)</code>（<code>.text</code>）。<br>本项目曾因混淆”节内索引”与”文件偏移”导致所有手算地址偏低 <code>0x600</code>，见附录 B-5。</p>
+</blockquote>
+<hr>
+<h2 id="10-复现步骤"><a href="#10-复现步骤" class="headerlink" title="10. 复现步骤"></a>10. 复现步骤</h2><h3 id="10-1-最小复现（仅需-Python，验证-§3–§4）"><a href="#10-1-最小复现（仅需-Python，验证-§3–§4）" class="headerlink" title="10.1 最小复现（仅需 Python，验证 §3–§4）"></a>10.1 最小复现（仅需 Python，验证 §3–§4）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">KEY = <span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-string">&quot;1105223341&quot;</span>)<br>p   = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;image/arc.scr&quot;</span>,<span class="hljs-string">&quot;rb&quot;</span>).read()<br>n   = <span class="hljs-built_in">int</span>.from_bytes(p[:<span class="hljs-number">4</span>],<span class="hljs-string">&quot;little&quot;</span>)<br>idx = p[<span class="hljs-number">16</span>:<span class="hljs-number">16</span>+n*<span class="hljs-number">32</span>]<br>idx = <span class="hljs-built_in">bytes</span>(idx[i] ^ KEY[i % <span class="hljs-number">5</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(idx)))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>    r    = idx[i*<span class="hljs-number">32</span>:(i+<span class="hljs-number">1</span>)*<span class="hljs-number">32</span>]<br>    off  = <span class="hljs-built_in">int</span>.from_bytes(r[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>],<span class="hljs-string">&quot;little&quot;</span>); size = <span class="hljs-built_in">int</span>.from_bytes(r[<span class="hljs-number">4</span>:<span class="hljs-number">8</span>],<span class="hljs-string">&quot;little&quot;</span>)<br>    name = r[<span class="hljs-number">8</span>:<span class="hljs-number">32</span>].split(<span class="hljs-string">b&quot;\x00&quot;</span>)[<span class="hljs-number">0</span>].decode(<span class="hljs-string">&quot;cp932&quot;</span>)<br>    blob = p[off:off+size]<br>    plain = (<span class="hljs-string">b&quot;\x4e&quot;</span> + <span class="hljs-built_in">bytes</span>(blob[j] ^ KEY[(j-<span class="hljs-number">1</span>)%<span class="hljs-number">5</span>] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">len</span>(blob)))) <span class="hljs-keyword">if</span> blob[:<span class="hljs-number">1</span>]==<span class="hljs-string">b&quot;X&quot;</span> <span class="hljs-keyword">else</span> blob<br>    <span class="hljs-built_in">print</span>(i, name, off, size, <span class="hljs-built_in">len</span>(plain))<br></code></pre></td></tr></table></figure>
+
+<p>预期：164 行，首行 <code>0 00-001.scr 5264 5986 5986</code>，末行 <code>163 open.scr 2396128 13802 13802</code>。</p>
+<h3 id="10-2-完整复现（Ghidra-headless）"><a href="#10-2-完整复现（Ghidra-headless）" class="headerlink" title="10.2 完整复现（Ghidra headless）"></a>10.2 完整复现（Ghidra headless）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1) 下载（企业代理需绕过吊销检查）</span><br>curl --ssl-no-revoke -L -o ghidra.zip &lt;Ghidra_12.1.4 官方 zip&gt;<br><span class="hljs-comment"># 2) 必须用系统 bsdtar；Git 自带 GNU tar 不认 zip</span><br>/c/Windows/System32/tar.exe -xf ghidra.zip<br><span class="hljs-comment"># 3) Jython 扩展：从“扩展池”解压到“模块目录”</span><br>/c/Windows/System32/tar.exe -xf &lt;根&gt;/Extensions/Ghidra/*_Jython.zip -C &lt;根&gt;/Ghidra/Extensions/<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bat">:: headless 启动需显式提供用户环境变量<br><span class="hljs-built_in">set</span> &quot;USERPROFILE=C:\Users\&lt;user&gt;&quot;<br><span class="hljs-built_in">set</span> &quot;APPDATA=C:\Users\&lt;user&gt;\AppData\Roaming&quot;<br><span class="hljs-built_in">set</span> &quot;LOCALAPPDATA=C:\Users\&lt;user&gt;\AppData\Local&quot;<br><span class="hljs-built_in">set</span> &quot;JAVA_HOME=C:\Program Files\Java\jdk-<span class="hljs-number">21</span>&quot;<br><span class="hljs-keyword">call</span> &lt;GHIDRA&gt;\support\analyzeHeadless.bat D:\tools\proj PRJ -import ACTGS.exe ^<br>  -postScript DecompAll.py -scriptPath D:\tools\scripts<br></code></pre></td></tr></table></figure>
+
+<p>Ghidra 脚本 API 注意：方法名是 <code>decompileFunction(f, timeoutSecs, monitor)</code>，<strong>不是</strong> <code>decompile</code>；<br>Ghidra 12 不再动态编译 <code>.java</code> 脚本 <strong>[M]</strong> 。</p>
+<h3 id="10-3-前导位图取证"><a href="#10-3-前导位图取证" class="headerlink" title="10.3 前导位图取证"></a>10.3 前导位图取证</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">CreateProcessA(CREATE_SUSPENDED=4) → ResumeThread → 等待初始化<br>→ ReadProcessMemory(0x4CE218, 32) → 统计置位<br></code></pre></td></tr></table></figure>
+
+<p>预期（ACP&#x3D;936）：126 位，<code>0x81–0xFE</code>。</p>
+<hr>
+<h2 id="11-已知限制与未决项"><a href="#11-已知限制与未决项" class="headerlink" title="11. 已知限制与未决项"></a>11. 已知限制与未决项</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>端到端”中文上屏”实机验收</td>
+<td>未完成。一次 SCRIPT ERROR 已定位为<strong>旧实例窗口&#x2F;未生效包</strong>所致，非格式问题</td>
+</tr>
+<tr>
+<td>2</td>
+<td>改变条目数 <code>N</code> 的回写</td>
+<td>未覆盖（需同步改文件头与所有偏移）</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>arc.cg</code> 图像资源回写</td>
+<td>容器与密钥同族 [M]，但 PSD&#x2F;DIB 内部结构未解析；界面文字为位图，需另立改图流程</td>
+</tr>
+<tr>
+<td>4</td>
+<td>影像文件</td>
+<td><code>Ending1-3.dat</code>、<code>WCOp.mpg</code> 为 MPEG-1，字幕已压入画面，文本替换无效 [M]</td>
+</tr>
+<tr>
+<td>5</td>
+<td>13 个无正文文件</td>
+<td>语义未细读（疑为过场&#x2F;纯指令）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>跨 ACP 环境</td>
+<td>§6.3 结论依赖宿主 ACP，换机须重新取证</td>
+</tr>
+<tr>
+<td>7</td>
+<td>版本普适性</td>
+<td>本文所有结论仅对 <code>ACTGS ver 2.33</code> + 该样本验证，未在其他 ACTGS 游戏上复现 <strong>[U]</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="附录-A-一致性测试向量"><a href="#附录-A-一致性测试向量" class="headerlink" title="附录 A 一致性测试向量"></a>附录 A 一致性测试向量</h2><table>
+<thead>
+<tr>
+<th>项</th>
+<th>期望值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>arc.scr</code> 大小</td>
+<td><code>2,409,936</code></td>
+</tr>
+<tr>
+<td><code>arc.scr</code> md5</td>
+<td><code>8c884f90613f6f84f747a4856183cb40</code></td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td><code>164</code></td>
+</tr>
+<tr>
+<td>索引区范围</td>
+<td><code>[16, 5264)</code></td>
+</tr>
+<tr>
+<td><code>rec[0]</code> 解密后前 8 字节</td>
+<td><code>0x1490</code> &#x3D; 5264，<code>0x1762</code> &#x3D; 5986</td>
+</tr>
+<tr>
+<td><code>rec[0]</code> 文件名</td>
+<td><code>00-001.scr</code></td>
+</tr>
+<tr>
+<td><code>rec[163]</code> 文件名 &#x2F; 偏移 &#x2F; 长度</td>
+<td><code>open.scr</code> &#x2F; <code>2396128</code> &#x2F; <code>13802</code></td>
+</tr>
+<tr>
+<td>明文总字节</td>
+<td><code>2,403,410</code></td>
+</tr>
+<tr>
+<td>明文 <code>cp932</code> 解码 <code>U+FFFD</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td>正文行数</td>
+<td><code>31,455</code></td>
+</tr>
+<tr>
+<td>未修改重封</td>
+<td><code>≡ 原文件 = True</code></td>
+</tr>
+<tr>
+<td>运行时前导位图</td>
+<td>126 位，<code>0x81–0xFE</code></td>
+</tr>
+</tbody></table>
+<h2 id="附录-B-陷阱登记表"><a href="#附录-B-陷阱登记表" class="headerlink" title="附录 B 陷阱登记表"></a>附录 B 陷阱登记表</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>现象</th>
+<th>误判后果</th>
+<th>正解</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B-1</td>
+<td>密文出现 5 字节周期重复</td>
+<td>误推为”反馈链加密”，在错误明文上继续分析并虚构”置换表”</td>
+<td>明文零区使密文等于密钥；变换须由反编译确认</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>用”解密→再加密一致”验证算法</td>
+<td>恒真，无鉴别力</td>
+<td>该判据仅用于验证<strong>回写不丢信息</strong></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-3</td>
+<td>差分变换在零区”碰巧正确”</td>
+<td>文件名、偏移字段看似全对</td>
+<td>以”零非法字节的合法文本”为唯一判据</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-4</td>
+<td>capstone 一次扫整段 <code>.text</code></td>
+<td>内嵌数据处失步 → 漏指令 → <strong>假阴性</strong></td>
+<td>字节模式搜索，或先建函数图</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-5</td>
+<td>VA&#x2F;文件偏移换算差 <code>0x600</code></td>
+<td>函数头找不到、call 站点校验失败</td>
+<td>以 Ghidra 符号为准</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-6</td>
+<td>SIB 表达式分词正则漏 <code>[esi+ecx-5]</code></td>
+<td>得出”无读改写循环”的假阴性</td>
+<td><code>re.findall(r&quot;[+-]?[A-Za-z0-9_]+&quot;, inner)</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-7</td>
+<td>改 IAT 使 API 指向自桩</td>
+<td><strong>无效</strong>：磁盘 IAT 槽存 thunk RVA，加载时被系统覆盖</td>
+<td>改调用点 <code>call rel32</code>，桩尾 <code>jmp [IAT]</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-8</td>
+<td>认为 <code>lstrcpynA</code> 返回长度</td>
+<td>它返回目标指针，用作长度会写飞</td>
+<td>拷后调 <code>lstrlenA(buf)</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-9</td>
+<td>正文替换为 ASCII 文本</td>
+<td><code>SCRIPT ERROR / 未定義のコマンド</code></td>
+<td>仅替换双字节开头的正文行</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-10</td>
+<td><code>bytearray</code> 切片改长度后沿用旧偏移</td>
+<td>后续偏移整体错位</td>
+<td>按行 split&#x2F;join 重建，或倒序替换</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-11</td>
+<td>Ghidra 12 写 <code>.java</code> 脚本</td>
+<td><code>ClassNotFoundException</code></td>
+<td>装 Jython 扩展写 <code>.py</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-12</td>
+<td>Jython 扩展解压到顶层 <code>Extensions/</code></td>
+<td><strong>静默不生效</strong></td>
+<td>解压到 <code>&lt;根&gt;/Ghidra/Extensions/</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-13</td>
+<td><code>.ps1</code> 含中文且无 BOM</td>
+<td>按 GBK 解析，括号引号错乱</td>
+<td>存 UTF-8 带 BOM，或正文纯 ASCII</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-14</td>
+<td>curl <code>CRYPT_E_NO_REVOCATION_CHECK</code></td>
+<td>TLS 失败</td>
+<td><code>--ssl-no-revoke</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-15</td>
+<td>Git 自带 <code>tar</code> 解 zip</td>
+<td><code>does not look like a tar archive</code></td>
+<td><code>C:\Windows\System32\tar.exe</code></td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-16</td>
+<td>中文路径目录下用 <code>py</code></td>
+<td>当前目录被生成 <code>Python\</code></td>
+<td>用绝对解释器路径</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-17</td>
+<td>用 8.3 短路径绕中文</td>
+<td>首层无短名 → <code>CreateProcess err=267</code></td>
+<td>直接写全路径 + BOM</td>
+<td>[M]</td>
+</tr>
+<tr>
+<td>B-18</td>
+<td>在替换前调用 <code>unpack()</code></td>
+<td>从<strong>已被上一轮污染的归档</strong>重解，替换”莫名失效”</td>
+<td>每轮从原始备份重新解包</td>
+<td>[M]</td>
+</tr>
+</tbody></table>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/Galgame/" rel="tag">Galgame</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/Ghidra-Delphi/" rel="tag">Ghidra Delphi</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%B1%89%E5%8C%96/" rel="tag">汉化</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E7%A0%B4%E8%A7%A3/" rel="tag">游戏破解</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/" rel="tag">逆向工程</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="飞牛fnOS旧硬盘数据导出全方案汇总" class="lazyload">
+        
+      
+      <a href="/2026/10/01/%E9%A3%9E%E7%89%9BfnOS%E6%97%A7%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA%E5%85%A8%E6%96%B9%E6%A1%88%E6%B1%87%E6%80%BB/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          飞牛fnOS旧硬盘数据导出全方案汇总
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ACTGS-%E5%BC%95%E6%93%8E%E5%BD%92%E6%A1%A3%E5%AE%B9%E5%99%A8%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83"><span class="toc-number">1.</span> <span class="toc-text">ACTGS 引擎归档容器格式规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%94%E2%80%94-%E4%BB%A5-WHITE-CLARITY%EF%BC%88ACTGS-ver-2-33%EF%BC%89%E4%B8%BA%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9C%AF%E8%AF%AD%E4%B8%8E%E8%AE%B0%E5%8F%B7"><span class="toc-number">1.1.</span> <span class="toc-text">1. 术语与记号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%B7%E6%9C%AC%E5%9F%BA%E5%87%86%E5%80%BC"><span class="toc-number">1.2.</span> <span class="toc-text">2. 样本基准值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%B9%E5%99%A8%E5%B8%83%E5%B1%80%E8%A7%84%E8%8C%83"><span class="toc-number">1.3.</span> <span class="toc-text">3. 容器布局规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%B4%A2%E5%BC%95%E8%AE%B0%E5%BD%95%EF%BC%8832-%E5%AD%97%E8%8A%82%EF%BC%8C%E8%A7%A3%E5%AF%86%E5%90%8E%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 索引记录（32 字节，解密后）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%95%B0%E6%8D%AE%E5%9D%97%E6%8E%92%E5%B8%83%E8%A7%84%E5%88%99"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 数据块排布规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B7%B7%E6%B7%86%E7%AE%97%E6%B3%95%E8%A7%84%E8%8C%83"><span class="toc-number">1.4.</span> <span class="toc-text">4. 混淆算法规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E7%B4%A2%E5%BC%95%E5%8C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 索引区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%95%B0%E6%8D%AE%E5%9D%97"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 数据块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%AF%86%E9%92%A5%E5%AE%9E%E4%BD%93"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 密钥实体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%84%9A%E6%9C%AC%E6%AD%A3%E6%96%87%E8%AF%AD%E6%B3%95%E7%BA%A6%E5%AE%9A%EF%BC%88-scr-%E8%A7%A3%E5%AF%86%E5%90%8E%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">5. 脚本正文语法约定（.scr 解密后）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E8%A1%8C%E5%88%86%E9%9A%94%E4%B8%8E%E8%AE%B0%E5%BD%95"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 行分隔与记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E8%A1%8C%E5%88%86%E7%B1%BB%E8%A7%84%E5%88%99%EF%BC%88%E8%A7%84%E8%8C%83%E6%80%A7%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 行分类规则（规范性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%B7%B2%E8%A7%82%E6%B5%8B%E5%91%BD%E4%BB%A4%E8%A1%A8%EF%BC%88arc-scr%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 已观测命令表（arc.scr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6%E8%AD%A6%E5%91%8A"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 资源标识符警告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E8%AF%AD%E6%96%99%E8%A7%84%E6%A8%A1%EF%BC%88%E6%A0%B7%E6%9C%AC%E5%AE%9E%E6%B5%8B%EF%BC%89"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 语料规模（样本实测）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%89%8D%E5%AF%BC%E5%88%A4%E5%AE%9A"><span class="toc-number">1.6.</span> <span class="toc-text">6. 字符编码与运行时前导判定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 渲染路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%8F%8C%E5%AD%97%E8%8A%82%E5%89%8D%E5%AF%BC%E5%88%A4%E5%AE%9A%E8%A1%A8"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 双字节前导判定表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E8%A7%84%E8%8C%83%E6%80%A7%E7%BB%93%E8%AE%BA"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 规范性结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%9B%9E%E5%86%99%E8%A7%84%E8%8C%83"><span class="toc-number">1.7.</span> <span class="toc-text">7. 回写规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%BF%85%E5%8A%9E%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1 必办事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E5%A1%AB%E5%85%85%E4%BF%9D%E7%9C%9F%E5%8E%9F%E5%88%99%EF%BC%88%E8%A7%84%E8%8C%83%E6%80%A7%EF%BC%89"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2 填充保真原则（规范性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%96%87%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%9A%84%E5%AE%89%E5%85%A8%E8%BE%B9%E7%95%8C"><span class="toc-number">1.7.3.</span> <span class="toc-text">7.3 文本替换的安全边界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E9%AA%8C%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.8.</span> <span class="toc-text">8. 验证协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E6%97%A0%E6%8D%9F%E5%9B%9E%E7%8E%AF%EF%BC%88round-trip%EF%BC%89"><span class="toc-number">1.8.1.</span> <span class="toc-text">8.1 无损回环（round-trip）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%8F%98%E9%95%BF%E5%9B%9E%E8%AF%BB"><span class="toc-number">1.8.2.</span> <span class="toc-text">8.2 变长回读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E5%B9%82%E7%AD%89"><span class="toc-number">1.8.3.</span> <span class="toc-text">8.3 幂等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E7%AE%97%E6%B3%95%E6%AD%A3%E7%A1%AE%E6%80%A7%E7%9A%84%E5%94%AF%E4%B8%80%E6%9C%89%E6%95%88%E5%88%A4%E6%8D%AE"><span class="toc-number">1.8.4.</span> <span class="toc-text">8.4 算法正确性的唯一有效判据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%9D%99%E6%80%81%E5%AE%9A%E4%BD%8D%E7%B4%A2%E5%BC%95"><span class="toc-number">1.9.</span> <span class="toc-text">9. 静态定位索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%8D%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.10.</span> <span class="toc-text">10. 复现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E6%9C%80%E5%B0%8F%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BB%85%E9%9C%80-Python%EF%BC%8C%E9%AA%8C%E8%AF%81-%C2%A73%E2%80%93%C2%A74%EF%BC%89"><span class="toc-number">1.10.1.</span> <span class="toc-text">10.1 最小复现（仅需 Python，验证 §3–§4）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-%E5%AE%8C%E6%95%B4%E5%A4%8D%E7%8E%B0%EF%BC%88Ghidra-headless%EF%BC%89"><span class="toc-number">1.10.2.</span> <span class="toc-text">10.2 完整复现（Ghidra headless）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-%E5%89%8D%E5%AF%BC%E4%BD%8D%E5%9B%BE%E5%8F%96%E8%AF%81"><span class="toc-number">1.10.3.</span> <span class="toc-text">10.3 前导位图取证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%B7%B2%E7%9F%A5%E9%99%90%E5%88%B6%E4%B8%8E%E6%9C%AA%E5%86%B3%E9%A1%B9"><span class="toc-number">1.11.</span> <span class="toc-text">11. 已知限制与未决项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95-A-%E4%B8%80%E8%87%B4%E6%80%A7%E6%B5%8B%E8%AF%95%E5%90%91%E9%87%8F"><span class="toc-number">1.12.</span> <span class="toc-text">附录 A 一致性测试向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95-B-%E9%99%B7%E9%98%B1%E7%99%BB%E8%AE%B0%E8%A1%A8"><span class="toc-number">1.13.</span> <span class="toc-text">附录 B 陷阱登记表</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="KujouShiori" class="lazyload">
+  <div class="sidebar-author-name">KujouShiori</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=kujoushiori@qq.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/KujouShiori itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/284636363 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-weibo sidebar-social-icon">
+      <a href=https://weibo.com/kujoushiori itemprop="url" target="_blank" aria-label="weibo" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-steam sidebar-social-icon">
+      <a href=https://steamcommunity.com/id/AmagiYukiko itemprop="url" target="_blank" aria-label="steam" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      2020-2026
+      <span class="footer-info-sep"></span>
+      KujouShiori
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        10.1k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:38
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" alt="backtop" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ACTGS-%E5%BC%95%E6%93%8E%E5%BD%92%E6%A1%A3%E5%AE%B9%E5%99%A8%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83"><span class="toc-number">1.</span> <span class="toc-text">ACTGS 引擎归档容器格式规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%94%E2%80%94-%E4%BB%A5-WHITE-CLARITY%EF%BC%88ACTGS-ver-2-33%EF%BC%89%E4%B8%BA%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">—— 以 WHITE CLARITY（ACTGS ver 2.33）为样本的参考文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9C%AF%E8%AF%AD%E4%B8%8E%E8%AE%B0%E5%8F%B7"><span class="toc-number">1.1.</span> <span class="toc-text">1. 术语与记号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%B7%E6%9C%AC%E5%9F%BA%E5%87%86%E5%80%BC"><span class="toc-number">1.2.</span> <span class="toc-text">2. 样本基准值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%B9%E5%99%A8%E5%B8%83%E5%B1%80%E8%A7%84%E8%8C%83"><span class="toc-number">1.3.</span> <span class="toc-text">3. 容器布局规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%B4%A2%E5%BC%95%E8%AE%B0%E5%BD%95%EF%BC%8832-%E5%AD%97%E8%8A%82%EF%BC%8C%E8%A7%A3%E5%AF%86%E5%90%8E%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 索引记录（32 字节，解密后）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%95%B0%E6%8D%AE%E5%9D%97%E6%8E%92%E5%B8%83%E8%A7%84%E5%88%99"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 数据块排布规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B7%B7%E6%B7%86%E7%AE%97%E6%B3%95%E8%A7%84%E8%8C%83"><span class="toc-number">1.4.</span> <span class="toc-text">4. 混淆算法规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E7%B4%A2%E5%BC%95%E5%8C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 索引区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%95%B0%E6%8D%AE%E5%9D%97"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 数据块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%AF%86%E9%92%A5%E5%AE%9E%E4%BD%93"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 密钥实体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%84%9A%E6%9C%AC%E6%AD%A3%E6%96%87%E8%AF%AD%E6%B3%95%E7%BA%A6%E5%AE%9A%EF%BC%88-scr-%E8%A7%A3%E5%AF%86%E5%90%8E%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">5. 脚本正文语法约定（.scr 解密后）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E8%A1%8C%E5%88%86%E9%9A%94%E4%B8%8E%E8%AE%B0%E5%BD%95"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 行分隔与记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E8%A1%8C%E5%88%86%E7%B1%BB%E8%A7%84%E5%88%99%EF%BC%88%E8%A7%84%E8%8C%83%E6%80%A7%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 行分类规则（规范性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%B7%B2%E8%A7%82%E6%B5%8B%E5%91%BD%E4%BB%A4%E8%A1%A8%EF%BC%88arc-scr%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 已观测命令表（arc.scr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6%E8%AD%A6%E5%91%8A"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 资源标识符警告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E8%AF%AD%E6%96%99%E8%A7%84%E6%A8%A1%EF%BC%88%E6%A0%B7%E6%9C%AC%E5%AE%9E%E6%B5%8B%EF%BC%89"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 语料规模（样本实测）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%89%8D%E5%AF%BC%E5%88%A4%E5%AE%9A"><span class="toc-number">1.6.</span> <span class="toc-text">6. 字符编码与运行时前导判定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 渲染路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%8F%8C%E5%AD%97%E8%8A%82%E5%89%8D%E5%AF%BC%E5%88%A4%E5%AE%9A%E8%A1%A8"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 双字节前导判定表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E8%A7%84%E8%8C%83%E6%80%A7%E7%BB%93%E8%AE%BA"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 规范性结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%9B%9E%E5%86%99%E8%A7%84%E8%8C%83"><span class="toc-number">1.7.</span> <span class="toc-text">7. 回写规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%BF%85%E5%8A%9E%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1 必办事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E5%A1%AB%E5%85%85%E4%BF%9D%E7%9C%9F%E5%8E%9F%E5%88%99%EF%BC%88%E8%A7%84%E8%8C%83%E6%80%A7%EF%BC%89"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2 填充保真原则（规范性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%96%87%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%9A%84%E5%AE%89%E5%85%A8%E8%BE%B9%E7%95%8C"><span class="toc-number">1.7.3.</span> <span class="toc-text">7.3 文本替换的安全边界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E9%AA%8C%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.8.</span> <span class="toc-text">8. 验证协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E6%97%A0%E6%8D%9F%E5%9B%9E%E7%8E%AF%EF%BC%88round-trip%EF%BC%89"><span class="toc-number">1.8.1.</span> <span class="toc-text">8.1 无损回环（round-trip）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%8F%98%E9%95%BF%E5%9B%9E%E8%AF%BB"><span class="toc-number">1.8.2.</span> <span class="toc-text">8.2 变长回读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E5%B9%82%E7%AD%89"><span class="toc-number">1.8.3.</span> <span class="toc-text">8.3 幂等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E7%AE%97%E6%B3%95%E6%AD%A3%E7%A1%AE%E6%80%A7%E7%9A%84%E5%94%AF%E4%B8%80%E6%9C%89%E6%95%88%E5%88%A4%E6%8D%AE"><span class="toc-number">1.8.4.</span> <span class="toc-text">8.4 算法正确性的唯一有效判据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%9D%99%E6%80%81%E5%AE%9A%E4%BD%8D%E7%B4%A2%E5%BC%95"><span class="toc-number">1.9.</span> <span class="toc-text">9. 静态定位索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%8D%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.10.</span> <span class="toc-text">10. 复现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E6%9C%80%E5%B0%8F%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BB%85%E9%9C%80-Python%EF%BC%8C%E9%AA%8C%E8%AF%81-%C2%A73%E2%80%93%C2%A74%EF%BC%89"><span class="toc-number">1.10.1.</span> <span class="toc-text">10.1 最小复现（仅需 Python，验证 §3–§4）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-%E5%AE%8C%E6%95%B4%E5%A4%8D%E7%8E%B0%EF%BC%88Ghidra-headless%EF%BC%89"><span class="toc-number">1.10.2.</span> <span class="toc-text">10.2 完整复现（Ghidra headless）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-%E5%89%8D%E5%AF%BC%E4%BD%8D%E5%9B%BE%E5%8F%96%E8%AF%81"><span class="toc-number">1.10.3.</span> <span class="toc-text">10.3 前导位图取证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%B7%B2%E7%9F%A5%E9%99%90%E5%88%B6%E4%B8%8E%E6%9C%AA%E5%86%B3%E9%A1%B9"><span class="toc-number">1.11.</span> <span class="toc-text">11. 已知限制与未决项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95-A-%E4%B8%80%E8%87%B4%E6%80%A7%E6%B5%8B%E8%AF%95%E5%90%91%E9%87%8F"><span class="toc-number">1.12.</span> <span class="toc-text">附录 A 一致性测试向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95-B-%E9%99%B7%E9%98%B1%E7%99%BB%E8%AE%B0%E8%A1%A8"><span class="toc-number">1.13.</span> <span class="toc-text">附录 B 陷阱登记表</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="KujouShiori" class="lazyload">
+  <div class="sidebar-author-name">KujouShiori</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=kujoushiori@qq.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/KujouShiori itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-bilibili sidebar-social-icon">
+      <a href=https://space.bilibili.com/284636363 itemprop="url" target="_blank" aria-label="bilibili" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-weibo sidebar-social-icon">
+      <a href=https://weibo.com/kujoushiori itemprop="url" target="_blank" aria-label="weibo" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-steam sidebar-social-icon">
+      <a href=https://steamcommunity.com/id/AmagiYukiko itemprop="url" target="_blank" aria-label="steam" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.6/dist/index.umd.js" integrity="sha384-vkGvf25gm1C1PbcoD5dNfc137HzNL&#x2F;hr1RKA5HniJOaawtvUmH5lTVFgFAruE9Ge" crossorigin="anonymous"></script>
+
+  <script>
+    window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.3.5' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+  </body>
+  </html>
+
